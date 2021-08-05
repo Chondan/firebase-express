@@ -1,0 +1,37 @@
+{
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint \"src/**/*\"",
+    "pre-build": "rm -rf lib/ && tsc",
+    "post-build": "tscpaths -p tsconfig.json -s ./src/ -o ./lib/",
+    "build": "yarn pre-build && yarn post-build",
+    "build:watch": "tsc-watch --onSuccess \"yarn post-build\"",
+    "serve": "yarn build:watch & firebase emulators:start --only functions",
+    "shell": "yarn build:watch && firebase functions:shell",
+    "start": "yarn shell",
+    "deploy": "yarn build && firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "14"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "custom-env": "^2.0.1",
+    "express": "^4.17.1",
+    "firebase": "^8.8.1",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/jsonwebtoken": "^8.5.4",
+    "tsc-watch": "^4.4.0",
+    "tscpaths": "^0.0.9"
+  }
+}
